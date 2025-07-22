@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -9,6 +12,7 @@ public class Principal {
     }
 
     public static void main(String[] args) throws InterruptedException {
+        List<Moneda> historialDeConversiones =  new ArrayList<>();
         String menu = """
                 #####################################################
                 
@@ -100,7 +104,7 @@ public class Principal {
                         continue;
                     }
                 }
-
+                historialDeConversiones.add(resultado);
                 // Pausa para ver el resultado antes de limpiar pantalla
                 System.out.println("\nPresione Enter para continuar...");
                 entrada.nextLine();
@@ -115,5 +119,12 @@ public class Principal {
         }
 
         entrada.close();
+        try {
+            GeneradorDeArchivo generador = new GeneradorDeArchivo();
+            generador.guardarJson(historialDeConversiones);
+            System.out.println("Historial de conversiones generado correctamente.");
+        } catch (IOException e){
+            System.err.println(e.getMessage());
+        }
     }
 }

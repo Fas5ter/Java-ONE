@@ -1,4 +1,5 @@
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.io.IOException;
 import java.net.URI;
@@ -30,12 +31,22 @@ public class Conversor {
         try{
             HttpResponse<String> response = client
                     .send(request, HttpResponse.BodyHandlers.ofString());
-            return new Gson().fromJson(response.body(), Moneda.class);
+
+            // Extraer los datos del JSON de respuesta
+            JsonObject jsonResponse = gson.fromJson(response.body(), JsonObject.class);
+            double rate = jsonResponse.get("conversion_rate").getAsDouble();
+            double result = jsonResponse.get("conversion_result").getAsDouble();
+
+            return new Moneda(
+                    monedaOrigen,
+                    monedaDestino,
+                    rate,
+                    result
+            );
         } catch (IOException | InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException("Error al realizar la conversión: " + e.getMessage(), e);
         }
-
     }
 
     Moneda dolarToPesoArg(double dolar){

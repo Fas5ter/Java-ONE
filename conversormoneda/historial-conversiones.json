@@ -1,0 +1,16 @@
+[
+  {
+    "Base_code": "USD",
+    "Target_code": "ARS",
+    "Conversion_rate": 1286.0,
+    "Conversion_result": 12860.0,
+    "FechaConversion": "2025-07-22T00:09:56.947044"
+  },
+  {
+    "Base_code": "MXN",
+    "Target_code": "USD",
+    "Conversion_rate": 0.0535,
+    "Conversion_result": 80.25,
+    "FechaConversion": "2025-07-22T00:10:04.5925315"
+  }
+]
